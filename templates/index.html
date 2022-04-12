@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task API</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h3 style="text-align: center">~ Task List ~</h3>
+
+    {% if my_tasks|length < 1 %} <h4 style="text-align: center">There are no my_tasks. Create one below!</h4>
+        {% else %}
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Task</th>
+                <th>Date Created</th>
+                <th>Completed</th>
+                <th>Actions</th>
+            </tr>
+            {% for task in my_tasks %}
+            <tr>
+                <td>{{task.id}}</td>
+                <td>{{task.task}}</td>
+                <td>{{task.date}}</td>
+                <td>
+                   <a href="/complete/{{task.id}}">{{task.completed}}</a>
+                </td>
+                <td>
+                    <a href="/delete/{{task.id}}">delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+
+
+        <div class="form">
+            <form action="/" method="POST">
+                <input type="text" name="content" id="content">
+                <input type="submit" value="Add Task">
+            </form>
+        </div>
+</div>
+{% endblock %}
